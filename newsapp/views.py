@@ -10,19 +10,9 @@ from django.urls import reverse_lazy
 from django.views.generic import *
 from .models import *
 from .forms import *
-# Create your views here.
-def today(request):
-    """Shows todays current time and date."""
-    today = datetime.datetime.now().strftime("%I:%M%p on %B %d, %Y")
-    context = {'today': today}
-    return render(request,'clienttemplate/base.html',{'today':today})
+import datetime
+# # Create your views here.
 
-def showdate(request):
-    datetime.datetime.now()
-    """Shows todays current time and date."""
-    # today = datetime.datetime.now().strftime("%I:%M%p on %B %d, %Y")
-    # context = {'today': today}
-    return render(request,'clienttemplate/base.html')
 
 
 
@@ -36,6 +26,7 @@ class BaseMixin(object):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["subsform"] = SubscriberForm
+        context["currentdate"]=datetime.datetime.now()
         context["allcategory"] = Category.objects.order_by("id")
         context["allnews"]= News.objects.order_by('-id')
         context['organization']=Organization.objects.first()
