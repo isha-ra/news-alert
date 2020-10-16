@@ -1,0 +1,58 @@
+  {% extends "clienttemplate/base.html" %}
+
+{% load static %}
+{% block contact %}active{% endblock %}
+{% block content %} 
+
+
+  <section id="contentSection">
+    <div class="row">
+      <div class="col-lg-8 col-md-8 col-sm-8">
+        <div class="left_content">
+          <div class="contact_area">
+            <h2>Contact Us</h2>
+            <blockquote> <p>{{organization.mission_and_vision}}</p></blockquote> 
+
+            <form action="{% url 'newsapp:message' %}" method="post">
+            {% csrf_token %}
+            {{messageform.name}}<br/>
+
+            {{messageform.email}}<br/>
+            {{messageform.message}}<br/>
+
+          
+            <button class="btn btn-theme"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+           <div class="clearfix"> </div>
+          </form>
+
+
+          
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-4">
+        <aside class="right_content">
+          <div class="single_sidebar">
+          <h2><span>Recent News</span></h2>
+            <ul class="spost_nav">
+
+              {% for news in allnews %}
+
+              <li>
+                <div class="media"> <a href="{% url 'newsapp:newsdetail' news.id %}" class="media-left"> <img alt="" src="{{news.image.url}}"> </a>
+                  <div class="media-body"> <a href="{% url 'newsapp:newsdetail' news.id %}" class="catg_title"> {{news.title}}</a> </div>
+                </div>
+              </li>
+            {% endfor %}
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+  {% endblock %}
