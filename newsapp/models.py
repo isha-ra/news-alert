@@ -75,3 +75,4 @@ class Sponsored(TimeStamp):
 
     def __str__(self):
         return self.title
+

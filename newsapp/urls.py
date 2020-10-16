@@ -11,6 +11,7 @@ path("category/<int:pk>/detail",CategoryDetailView.as_view(),name="categorydetai
 path("news/<int:pk>/newsdetail/",NewsDetailView.as_view(), name="newsdetail"),
 
 path("subscriber/",SubscriberCreateView.as_view(),name="subscriber"),
+
 path("message/",ContactCreateView.as_view(),name="message"),
 
 

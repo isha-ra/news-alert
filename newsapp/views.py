@@ -10,8 +10,6 @@ from django.urls import reverse_lazy
 from django.views.generic import *
 from .models import *
 from .forms import *
-import datetime
-
 # Create your views here.
 def today(request):
     """Shows todays current time and date."""
@@ -74,10 +72,15 @@ class CategoryDetailView(BaseMixin, DetailView):
     model = Category
     context_object_name = "categoryobject"
 
+
+
+
 class NewsDetailView(BaseMixin, DetailView):
     template_name = "clienttemplate/newsdetail.html"
     model = News
     context_object_name = "newsobject"
+
+
 
 class SubscriberCreateView(BaseMixin, SuccessMessageMixin, CreateView):
     template_name = "clienttemplate/subscriber.html"

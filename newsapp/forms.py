@@ -37,3 +37,4 @@ class ContactForm(forms.ModelForm):
                 'placeholder': 'Enter your message...'
             }),
         }
+

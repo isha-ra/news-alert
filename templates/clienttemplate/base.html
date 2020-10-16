@@ -130,7 +130,7 @@
             <p>By subscribing to our mailing list you will always get latest news and updates from us.</p>
            <form action="{% url 'newsapp:subscriber' %}" method="post">
             {% csrf_token %}
-            {{subsform.email}}
+            {{subsform.email}}<br/>
             <!-- <input type="email" name="Email" placeholder="Enter your email..." class="form-control" required=""> -->
             <button class="btn btn-theme"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
            <div class="clearfix"> </div>
@@ -169,6 +169,7 @@
     </div>
   </footer>
 </div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v8.0&appId=1200012277041191&autoLogAppEvents=1" nonce="EbBtRRTL"></script>
 <script src="{% static 'clientstatic/assets/js/jquery.min.js' %}"></script> 
 <script src="{% static 'clientstatic/assets/js/wow.min.js' %}"></script> 
 <script src="{% static 'clientstatic/assets/js/bootstrap.min.js' %}"></script> 
