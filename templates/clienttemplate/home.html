@@ -65,6 +65,7 @@
               <a href="{% url 'newsapp:categorydetail' category.id %}">{{category.title}}</span></h2></a>
             <div class="single_post_content_left">
               <ul class="business_catgnav  wow fadeInDown">
+                {% for topnews in category.news_set.all|dictsortreversed:"id"|slice:"1" %}
               
                 <li>
                   <figure class="bsbig_fig"> <a href="{% url 'newsapp:newsdetail' topnews.id %}" class="featured_img"> 
@@ -74,19 +75,21 @@
                       <a style="color: pink" href="{% url 'newsapp:newsdetail' topnews.id %}">Read more</a></p>
                   </figure>
                 </li>
-            
+            {% endfor %}
               </ul>
+            
             </div>
             <div class="single_post_content_right">
               <ul class="spost_nav">
-                {% for news in category.news_set.all %}
-                {% if news != topnews %}
+                {% for news in category.news_set.all|dictsortreversed:"id" %}
+
+                {% if not forloop.first %}
                   
 
                 <li>
                   <div class="media wow fadeInDown"> <a href="{% url 'newsapp:newsdetail' news.id %}" class="media-left"> <img alt="" src="{{news.image.url}}"> </a>
                     <div class="media-body"> <a href="{% url 'newsapp:newsdetail' news.id %}" class="catg_title"> {{news.title}}</a>
-                    <p>{{news.content|truncatewords:"24"}}</p> </div>
+                    <p>{{news.content|truncatewords:"24"}}<a  style="color: pink" href="{% url 'newsapp:newsdetail' news.id %}" class="catg_title">View more</a></p> </div>
                   </div>
                 </li>
                 {% endif %}

@@ -13,12 +13,18 @@ from .forms import *
 import datetime
 
 # Create your views here.
-today = date.today()
-# def today(request):
-#     """Shows todays current time and date."""
-#     today = datetime.datetime.now().strftime("%I:%M%p on %B %d, %Y")
-#     context = {'today': today}
-#     return render(request,'clienttemplate/base.html' ,context)
+def today(request):
+    """Shows todays current time and date."""
+    today = datetime.datetime.now().strftime("%I:%M%p on %B %d, %Y")
+    context = {'today': today}
+    return render(request,'clienttemplate/base.html',{'today':today})
+
+def showdate(request):
+    datetime.datetime.now()
+    """Shows todays current time and date."""
+    # today = datetime.datetime.now().strftime("%I:%M%p on %B %d, %Y")
+    # context = {'today': today}
+    return render(request,'clienttemplate/base.html')
 
 
 
@@ -36,10 +42,7 @@ class BaseMixin(object):
         context["allnews"]= News.objects.order_by('-id')
         context['organization']=Organization.objects.first()
         context['mainsponsored']=Sponsored.objects.first()
-        # context['today'] = today
-        context["topnews"] =News.objects.last()
-        # context["topnews"] = News.objects.all().exclude(id =singlenews.id)
-        # cntext["Singlebignews"] = News.objects.all().exclude(news__in=Manybignews)
+
         return context
 
 
