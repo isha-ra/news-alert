@@ -1,0 +1,162 @@
+
+
+
+                                   
+
+
+  {% extends "admintemplate/base.html" %}
+
+{% load static %}
+
+{% block content %} 
+
+<section id="main-content">
+	<section class=" wrapper">
+		<div class="agile-grid">
+          
+		<h2 class="w3ls_head">Category</h2>
+      
+            <div class="row">
+        <div class="col-lg-6">
+                    <section class="panel">
+                        <div class="panel-body" style="text-align: center">Add New News Category</div>
+                        <form action="{% url 'newsapp:categorycreate' %}" method="post" enctype="multipart/form-data">
+	 {% csrf_token %}
+
+
+{{cat.title}}
+<br/>
+{{cat.image}}
+<br/>
+<button class="btn btn-primary" type="submit" value="submit">Add</button>
+</form>
+                    </section>
+                </div>
+
+
+                <div class="col-lg-6">
+                    <section class="panel">
+                       
+                       
+                        <div>
+      <table class="table" >
+        <thead>
+          <tr>
+            <th data-breakpoints="xs">SN</th>
+            <th>Title </th>
+            <th>Image </th>
+
+            <th>Action</th>
+
+          </tr>
+        </thead>
+        <tbody>
+        	{% for cat in allcategory %}
+          <tr data-expanded="true">
+            <td>{{ forloop.counter }}</td>
+            <td>{{cat.title}}</td>
+              <td><img src="{{cat.image.url}}" style="height: 100px;width: 100px"></td>
+            <td>
+         
+
+ <button type="button" class="btn btn-outline-primary" data-toggle="modal" href="#categoryupdate-{{cat.id}}"
+             data-target="#Edit{{cat.id}}"><i class="fa fa-pencil"></i></button>
+
+
+
+<button type="button" class="btn btn-outline-danger" data-toggle="modal" href="#categorydelete-{{cat.id}}"
+             data-target="#Del{{cat.id}}"> <i class="fa fa-trash-o"></i></button>&nbsp
+            </td>
+          </tr>
+
+           <div id ="Del{{cat.id}}" class="modal fade" role="document">
+                            <div class="modal-dialog" id="categorydelete-{{cat.id}}">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Delete Confirmation</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                    </button>
+                                        </div>
+                                        <div class="modal-body">
+                                        <form action="{% url 'newsapp:categorydelete' cat.id %}" method="post">
+                                          {% csrf_token %}
+                                            <h6>Are you sure you want to delete {{ cat.title }} category?</h6>
+                                                <br>
+                                            <center><input type="submit" class="btn btn-danger btn-md" value="Confirm"/>
+                                                <button type="submit" class="btn btn-secondary" data-dismiss="modal">Cancel</button></center>
+
+                                        </form>
+                                    </div>
+                                    </div>
+
+
+                        </div>
+            </div>
+
+
+
+
+
+
+
+
+
+ <div class="modal fade bd-example-modal-sm" id="Edit{{cat.id}}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+                        <div class="modal-header">
+                                <h5 class="modal-title">Update Category  
+                                  <b>{{cat.title}}</b> </h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                </button>
+                        </div>
+                        <div class="modal-body">
+                                        <form action="{% url 'newsapp:categoryupdate' cat.id %}" method="post" enctype="multipart/form-data"> 
+                                          {% csrf_token %}
+                                          {{form.as_p}}<br/>
+                                         
+                           <button type="submit" class="save btn btn-success btn-lg">Confirm</button>&nbsp<button type="submit" class="btn btn-secondary btn-lg" data-dismiss="modal">Cancel</button>
+                                         </form>
+                        </div>
+                              </div>
+                            </div>
+                          </div>
+
+            </td>
+                </div>
+    
+          {% endfor %}
+          
+        </tbody>
+      </table>
+      <div class="pagination">
+    <div class="section-inner clearfix">
+        <p>
+            {% if allcategory.has_previous %}
+                <a  href="?page={{ allcategory.previous_page_number }}">&lt; Prev</a> |
+            {% endif %}
+
+            {% if allcategory.has_next %}
+                <a href="?page={{ allcategory.next_page_number }}">Next &gt;</a>
+            {% endif %}
+
+            <span>Page {{ allcategory.number }} of {{ allcategory.paginator.num_pages }}</span>
+        </p>
+    </div>
+</div>
+
+
+    </div>
+                    </section>
+                </div>
+            </div>
+            
+		</div>
+        </section>
+
+</section>
+
+
+ {% endblock %}

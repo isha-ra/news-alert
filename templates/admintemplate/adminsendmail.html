@@ -1,0 +1,80 @@
+
+  {% extends "admintemplate/base.html" %}
+
+{% load static %}
+
+{% block content %} 
+
+<section id="main-content">
+  <section class="wrapper">
+    <div class="mail-w3agile">
+        <!-- page start-->
+        <div class="row">
+            <div class="col-sm-3 com-w3ls">
+                <section class="panel">
+                    <div class="panel-body">
+                        <a href="{% url 'newsapp:sendmail' %}"  class="btn btn-compose">
+                            Compose Mail
+                        </a>
+                        <ul class="nav nav-pills nav-stacked mail-nav">
+                            <li ><a href="{% url 'newsapp:maillist' %}"> <i class="fa fa-inbox"></i> Inbox  <span class="label label-danger pull-right inbox-notification">{{countmail}}</span></a></li>
+                              <li class="active"><a href="{% url 'newsapp:sendmaillist' %}"> <i class="fa fa-envelope-o"></i> Send Mail 
+                                <span class="label label-danger pull-right inbox-notification">{{countsendmail}}</span></a></li>
+
+                            
+                        </ul>
+                    </div>
+                </section>
+
+           
+            </div>
+          <div class="col-sm-9 mail-w3agile">
+                <section class="panel">
+                    <header class="panel-heading wht-bg">
+                       <h4 class="gen-case"> Compose Mail
+                           
+                       </h4>
+                    </header>
+                    <div class="panel-body">
+                       
+                        <div class="compose-mail">
+                            <form role="form-horizontal" action="{% url 'newsapp:sendmail' %}" method="post">
+                            	    {% csrf_token %}
+                                <div class="form-group">
+                                    <label for="to" class="">To:</label>
+                               {{mail.email}}
+
+                                  
+
+                                    
+                                </div>
+                                  <br/>
+                                
+
+                                <div class="compose-editor">
+                                    {{mail.message}}
+                                    
+                                </div>
+                                <br/>
+
+                                <div class="form-group">
+
+                                {{mail.image}}
+                            </div>
+                                <div class="compose-btn">
+                                    <button class="btn btn-primary btn-sm"><i class="fa fa-check"></i> Send</button>
+                                   
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- page end-->
+        </div>
+</section>
+
+ {% endblock %}

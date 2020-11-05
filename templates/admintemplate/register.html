@@ -1,0 +1,133 @@
+
+
+
+
+
+                                   
+
+
+  {% extends "admintemplate/base.html" %}
+
+{% load static %}
+
+{% block content %} 
+
+<section id="main-content">
+	<section class=" wrapper">
+		<div class="agile-grid">
+           
+
+      
+            <div class="row">
+                <div class="col-lg-6">
+                    <section class="panel">
+                        <div class="panel-body">User register</div>
+                        <form action="#" method="post">
+			
+{% csrf_token %}
+		<p id="errorp"></p>
+		{{form.as_p}}
+
+			<h4><input type="checkbox" />I agree to the Terms of Service and Privacy Policy</h4>
+			
+				<div class="clearfix"></div>
+				<input type="submit" value="submit" name="register">
+		</form>
+                    </section>
+                </div>
+              
+            </div>
+            
+		</div>
+        </section>
+
+
+
+        <div class="col-lg-6">
+                    <section class="panel">
+                       
+                       
+                        <div>
+      <table class="table" >
+        <thead>
+          <tr>
+            <th data-breakpoints="xs">SN</th>
+            <th>Title </th>
+            <th>Image </th>
+
+            <th>Action</th>
+
+          </tr>
+        </thead>
+        <tbody>
+        	{% for user in alluser %}
+          <tr data-expanded="true">
+            <td>{{ forloop.counter }}</td>
+            <td>{{user.username}}</td>
+             
+            <td>
+            	
+            	<span><a href=" ">
+            	<i class="fa fa-trash"></i></a></span>
+            </td>
+          </tr>
+          {% endfor %}
+          
+        </tbody>
+      </table>
+    </div>
+                    </section>
+                </div>
+
+
+
+</section>
+
+
+
+
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+	// alert("hello");
+	$("#id_username").on("keyup",function(){
+		var uname= $(this).val();
+		// alert(uname);
+		$.ajax({
+			method:"get",
+			url:"{% url 'newsapp:usernamechecker' %}",
+			data:{
+				"username":uname
+			},
+			success:function(data){
+				// alert(data.output);
+				if(data.output=="yes"){
+					$("#errorp").text("username already taken").css("color","red");
+					$("#mybutton").attr("disabled","true");
+
+				}
+
+					else{
+						$("#errorp").text("username available").css("color","green");
+						$("#mybutton").removeAttr("disabled");
+
+					}
+			}
+		})
+
+
+
+
+
+
+	})
+
+
+})
+
+
+</script>
+
+
+ {% endblock %}

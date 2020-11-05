@@ -1,0 +1,63 @@
+
+  {% extends "admintemplate/base.html" %}
+
+{% load static %}
+
+{% block content %} 
+
+<h3>Category List</h3>
+<!--main content start-->
+<section id="main-content">
+	<section class=" wrapper">
+		<div class="agile-grid">
+           
+		<h2 class="w3ls_head">News List</h2>
+      
+            <div class="row">
+
+                <div class="col-lg-6">
+                    <section class="panel">
+                       <h3> <div class="panel-body" style="text-align: center;">Available News </div></h3>
+                       
+                        <div>
+      <table class="table" >
+        <thead>
+          <tr>
+            <th data-breakpoints="xs">SN</th>
+            <th>Image</th>
+            <th>News  Title</th>
+
+            <th>Action</th>
+
+          </tr>
+        </thead>
+        <tbody>
+            <!-- |truncatewords:"5" -->
+        	{% for  news in allnews %}
+          <tr data-expanded="true">
+            <td>{{ forloop.counter }}</td>
+            <td><img src="{{news.image.url}}" style="height: 100px;width: 100px"></td>
+            <td>{{news.title}}</td>
+            <td>
+            	<span><a href="">
+            	<i class="fa fa-edit"></i></a></span>
+            	<span><a href="">
+            	<i class="fa fa-trash"></i></a></span>
+            </td>
+          </tr>
+          {% endfor %}
+          
+        </tbody>
+      </table>
+    </div>
+                    </section>
+                </div>
+            </div>
+            
+		</div>
+        </section>
+
+</section>
+
+<!--main content end-->
+ {% endblock %}

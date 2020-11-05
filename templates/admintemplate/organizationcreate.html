@@ -1,0 +1,43 @@
+
+
+  {% extends "admintemplate/base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<!--main content start-->
+<section id="main-content">
+	<section class=" wrapper">
+		<div class="agile-grid">
+           
+		<h2 class="w3ls_head">News Category</h2>
+      {% if organizationcount >= 1 %}
+            organization alredy added
+            {% else %}
+            <div class="row">
+                <div class="col-lg-6">
+                    <section class="panel">
+                        <div class="panel-body" style="text-align: center">Add New News Category</div>
+      
+<form action="{% url 'newsapp:organizationcreate' %}" method="post " enctype="multipart/form-data">
+	 {% csrf_token %}
+
+
+{{form.as_p}}
+<br/>
+
+<button class="btn btn-primary" type="submit">Add</button>
+</form>            </section>
+                </div>
+              
+            </div>
+
+            {% endif %}
+            
+		</div>
+        </section>
+
+
+ {% endblock %}
+                                   

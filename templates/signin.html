@@ -1,0 +1,17 @@
+
+	{% block content %}
+	
+	<h4>signin</h4>
+	{% if error %}
+	<li class="text-danger">{{error}}</li>
+	{% endif %}
+	<form method="POST" action="">
+		{% csrf_token %}
+		{{form.as_p}}
+
+	<button>Signin</button>
+</form>
+
+
+
+{% endblock %}

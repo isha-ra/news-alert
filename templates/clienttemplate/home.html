@@ -4,70 +4,74 @@
 {% block home %}active{% endblock %}
 {% block content %} 
 
+
   <section id="sliderSection">
     <div class="row">
       <div class="col-lg-8 col-md-8 col-sm-8">
-         
-
         <div class="slick_slider">
            {% for news in allnews %}
-          <div class="single_iteam"> <a href="pages/single_page.html"> <img src="{{news.image.url}}" alt=""></a>
+
+           <div class="single_iteam"> <a href="{% url 'newsapp:newsdetail' news.id %}"> <img src="{{news.image.url}}" alt=""></a>
                
             <div class="slider_article">
-              <h2><a class="slider_tittle" href="pages/single_page.html">{{news.title}}</a></h2>
+              <h2><a class="slider_tittle" href="{% url 'newsapp:newsdetail' news.id %}">{{news.title}}</a></h2>
               <p>{{news.content|truncatewords:"45"}}.</p>
             </div>
                  
 
           </div>
-               
-         
-       
+          {% endfor %}
 
-        {% endfor %}
         </div>
-
       </div>
       <div class="col-lg-4 col-md-4 col-sm-4">
         <div class="latest_post">
-
-          <h2><span>Latest post</span></h2>
+          <h2><span><a href="{% url 'newsapp:nepalinews' %}"> Nepali News</span></h2></a>
           <div class="latest_post_container">
             <div id="prev-button"><i class="fa fa-chevron-up"></i></div>
             <ul class="latest_postnav">
-                 {% for news in allnews %}
 
-              <li>
-                <div class="media"> <a href="{% url 'newsapp:newsdetail' news.id %}" class="media-left"> <img alt="" src="{{news.image.url}}"> </a>
-                  <div class="media-body"> <a href="{% url 'newsapp:newsdetail' news.id %}" class="catg_title"> {{news.title}}</a> </div>
+
+               
+
+
+                 {% for news in allarticles|slice:"5" %}
+
+                <li>
+                <div class="media"> <a href="#" class="media-left"> <img alt="" src="{{news.title_photo}}"> </a>
+                  <div class="media-body"> <a href="#" class="catg_title"> {{news.title}}</a> </div>
                 </div>
               </li>
             {% endfor %}
+             
             </ul>
             <div id="next-button"><i class="fa  fa-chevron-down"></i></div>
           </div>
         </div>
       </div>
-      
     </div>
   </section>
+
+
+
+
+
+
 
 
   <section id="contentSection">
     <div class="row">
       <div class="col-lg-8 col-md-8 col-sm-8">
         <div class="left_content">
-
                  {% for category in allcategory %}
 
           <div class="single_post_content">
-            <h2><span>
+         <h2><span>
               <a href="{% url 'newsapp:categorydetail' category.id %}">{{category.title}}</span></h2></a>
             <div class="single_post_content_left">
               <ul class="business_catgnav  wow fadeInDown">
-                {% for topnews in category.news_set.all|dictsortreversed:"id"|slice:"1" %}
-              
-                <li>
+                 {% for topnews in category.news_set.all|dictsortreversed:"id"|slice:"1" %}
+                 <li>
                   <figure class="bsbig_fig"> <a href="{% url 'newsapp:newsdetail' topnews.id %}" class="featured_img"> 
                     <img alt="" src="{{topnews.image.url}}"> <span class="overlay"></span> </a>
                     <figcaption> <a href="{% url 'newsapp:newsdetail' topnews.id %}">{{topnews.title}}</a> </figcaption>
@@ -75,38 +79,94 @@
                       <a style="color: pink" href="{% url 'newsapp:newsdetail' topnews.id %}">Read more</a></p>
                   </figure>
                 </li>
-            {% endfor %}
+
+                {% endfor %}
+               
               </ul>
-            
             </div>
             <div class="single_post_content_right">
               <ul class="spost_nav">
                 {% for news in category.news_set.all|dictsortreversed:"id" %}
 
                 {% if not forloop.first %}
-                  
-
                 <li>
                   <div class="media wow fadeInDown"> <a href="{% url 'newsapp:newsdetail' news.id %}" class="media-left"> <img alt="" src="{{news.image.url}}"> </a>
                     <div class="media-body"> <a href="{% url 'newsapp:newsdetail' news.id %}" class="catg_title"> {{news.title}}</a>
                     <p>{{news.content|truncatewords:"24"}}<a  style="color: pink" href="{% url 'newsapp:newsdetail' news.id %}" class="catg_title">View more</a></p> </div>
                   </div>
                 </li>
-                {% endif %}
-                 {% if news.category.news_set.count <= 1 %}
+             {% endif %}
+              
+             {% if news.category.news_set.count <= 1 %}
               <h4>Other Related News Not Found!!!</h4>
-            {% endif %}
-          {% endfor %}
              
+
+            {% endif %}
+             {% endfor %}
               </ul>
             </div>
           </div>
           {% endfor %}
-        
-     
+          
         </div>
-
       </div>
+      <div class="col-lg-4 col-md-4 col-sm-4">
+        <aside class="right_content">
+          <div class="single_sidebar">
+            <h2><span><a href="#"> Other News</span></h2></a>
+          
+
+           {% for news in allnews %}
+
+            <ul class="spost_nav">
+              <li>
+                <div class="media wow fadeInDown"> <a href="{% url 'newsapp:newsdetail' news.id %}" class="media-left"> <img alt="#" src="{{news.image.url}}"> </a>
+                  <div class="media-body"> <a href="{% url 'newsapp:newsdetail' news.id %}" class="catg_title"> {{news.title}}</a> </div>
+                </div>
+              </li>
+              
+            </ul>
+            {% endfor %}
+          </div>
+          <div class="single_sidebar">
+            <ul class="nav nav-tabs" role="tablist">
+              <li role="presentation" class="active"><a href="#category" aria-controls="home" role="tab" data-toggle="tab">Category</a></li>
+             
+            </ul>
+            <div class="tab-content">
+              <div role="tabpanel" class="tab-pane active" id="category">
+
+
+                {% for category in allcategory %}
+                <ul>
+                  <li class="cat-item"><a href="{% url 'newsapp:categorydetail' category.id %}">{{category.title}}</a></li>
+
+                </ul>
+                {% endfor %}
+              </div>
+          
+            </div>
+          </div>
+          <div class="single_sidebar wow fadeInDown">
+            <h2><span>Sponsor</span></h2>
+            {% for sponsor in allsponsored %}
+            {% if sponsor != mainsponsored %}
+            <a class="sideAdd" href="#"><img src="{{sponsor.image.url}}" alt="{{sponsor.title}}" style="height: 150px; width: : 100px"></a> 
+            {% endif %}
+            {% endfor %}
+          </div>
+          
+          
+        </aside>
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+
 
 
 

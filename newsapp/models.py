@@ -8,7 +8,7 @@ class TimeStamp(models.Model):
         abstract = True
 # Create your models here.
 class Category(models.Model):
-	title=models.CharField(max_length=200)
+	title=models.CharField(max_length=200,blank=True,null=True)
 	image=models.ImageField(upload_to="category")
 	
 	def __str__(self):
@@ -34,18 +34,16 @@ class Organization(TimeStamp):
     logo = models.ImageField(upload_to="logo")
     email = models.EmailField()
     phone = models.CharField(max_length=200)
-    mobile = models.CharField(max_length=200, null=True, blank=True)
+
     address = models.CharField(max_length=200)
     slogan = models.CharField(max_length=200, null=True, blank=True)
     about = models.TextField()
     mission_and_vision = models.TextField()
-    profile_image = models.ImageField(upload_to="profile")
+
     website = models.CharField(max_length=200)
-    map_location = models.CharField(max_length=200)
-    favicon = models.ImageField(upload_to="favicon", null=True, blank=True)
-    facebook = models.CharField(max_length=200, null=True, blank=True)
-    youtube = models.CharField(max_length=200, null=True, blank=True)
-    instagram = models.CharField(max_length=200, null=True, blank=True)
+
+
+
 
     def __str__(self):
         return self.name
@@ -75,4 +73,11 @@ class Sponsored(TimeStamp):
 
     def __str__(self):
         return self.title
+
+class Mail(TimeStamp):
+    email= models.EmailField()
+    image=models.ImageField(upload_to="sendmail",null=True,blank=True)
+    message=models.TextField()
+    def __str__(self):
+        return self.email
 

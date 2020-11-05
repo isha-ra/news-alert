@@ -1,0 +1,32 @@
+
+  {% extends "admintemplate/base.html" %}
+
+{% load static %}
+
+{% block content %} 
+
+
+<!--main content start-->
+<section id="main-content">
+	<section class=" wrapper">
+		<div class="agile-grid">
+         
+		<h2 class="w3ls_head">Delete</h2>
+      
+            <div class="row">
+                <div class="col-lg-12">
+                    <form method="POST">
+    {% csrf_token %}
+<p>Are you sure you want to delete?</p>
+<button class="btn btn-danger">Yes</button>
+<a href="{% url 'newsapp:categorycreate' %}" class="btn btn-primary">No</a>
+
+</form>
+                </div>
+                </div>
+        </section>
+
+</section>
+
+<!--main content end-->
+ {% endblock %}

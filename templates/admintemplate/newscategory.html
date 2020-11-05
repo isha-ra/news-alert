@@ -1,0 +1,40 @@
+
+  {% extends "admintemplate/base.html" %}
+
+{% load static %}
+
+{% block content %} 
+
+<h3>Category List</h3>
+<!--main content start-->
+<section id="main-content">
+	<section class=" wrapper">
+		<div class="agile-grid">
+           
+		<h2 class="w3ls_head">News Category</h2>
+      
+            <div class="row">
+                <div class="col-lg-6">
+                    <section class="panel">
+                        <div class="panel-body">Add New News Category</div>
+                        <form action="{% url 'newsapp:addcategory' %}" method="post">
+                        		{% csrf_token %}
+                        		<div class="form-group">
+                        			
+                    	{{cat.title}} <br/>
+                    	{{cat.image}}<br/>
+                    	<button class="btn btn-success">Add New Category</button>
+                        		</div>
+                        </form>
+                    </section>
+                </div>
+              
+            </div>
+            
+		</div>
+        </section>
+
+</section>
+
+<!--main content end-->
+ {% endblock %}
